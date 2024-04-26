@@ -1,0 +1,22 @@
+#!/bin/bash
+
+FILE=/home/usr/laboratory/ukol_b55.data;
+
+param=$#
+
+if [ ! -f $FILE ] ; then touch "${FILE}" ; fi
+
+if [ 0 -eq $param ] ; then
+    echo "Žádná volba, použijte -h pro nápovědu.">&2 && exit 1 ; fi ;
+
+while getopts 'ha:do:v' VOLBA ; do
+    case "$VOLBA" in
+        h|help)
+            echo -e "Skript se spouští s volbami:\n-h (help) vypíše nápovědu\n-a (append) přidá další data\n-d (delete) smaže data\n-o (overwrite) přepíše data souboru argumentem\n-v (view) předá na standardní výstup obsah dat">&2 ;;
+        a|append) [ -f $FILE ] && echo "$OPTARG" >> ${FILE} ;;
+        d|delete) if [[ -f $FILE ]] ; then rm ${FILE} ; fi ;;
+        o|overwrite) if [[ ! -f $FILE ]] ; then touch $FILE ; fi && echo "$OPTARG" > ${FILE} ;;
+        v|view) if [[ -f $FILE ]] ; then cat ${FILE} ; fi ;;
+        ?) echo "Chybná volba, použijte -h pro nápovědu.">&2 && exit 1 ;;
+    esac
+done
