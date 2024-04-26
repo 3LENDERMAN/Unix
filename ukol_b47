@@ -1,0 +1,16 @@
+#!/bin/bash
+num=$#
+first=$1
+param=0
+if [ $num -le 1 ] ; then exit 1 ; fi 
+touch "$first"
+shift
+
+for (( i = 1 ; i <= $num ; i++ )) ; do
+  param=${!i}
+  base=$(basename "$param")
+  echo "-- ${i}. ${base} ee0bab5b4e4bf0ca424e" >> "$first"
+  cat "$param" >> "$first" 
+done
+
+exit 0
