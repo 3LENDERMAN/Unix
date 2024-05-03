@@ -1,0 +1,16 @@
+#!/bin/bash
+
+if [ $# -eq 1 ] ; then PATTERN=$1 ; fi
+
+FILE=$(cat /etc/passwd | cut -d: -f1,3,4)
+for ROW in ${FILE} ; do
+    if [[ $ROW =~ $PATTERN ]] # compare strings
+    then
+    # alternative to "while read .."
+    LOGIN=$(echo $ROW | cut -d: -f1)
+    FUID=$(echo $ROW | cut -d: -f2)
+    FGID=$(echo $ROW | cut -d: -f3)
+    printf '%16s | %-5s | %-5s\n' ${LOGIN} ${FUID} ${FGID}; 
+    else 
+    continue ;fi 
+done
