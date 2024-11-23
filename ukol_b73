@@ -6,7 +6,7 @@ FILE=$(cat /etc/passwd | cut -d: -f1,3,4)
 for ROW in ${FILE} ; do
     if [[ $ROW =~ $PATTERN ]] # compare strings
     then
-    # alternative to "while read .."
+    # alternative to "while read ..."
     LOGIN=$(echo $ROW | cut -d: -f1)
     FUID=$(echo $ROW | cut -d: -f2)
     FGID=$(echo $ROW | cut -d: -f3)
