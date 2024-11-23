@@ -5,6 +5,7 @@ param=0
 if [ $num -le 1 ] ; then exit 1 ; fi 
 touch "$first"
 shift
+echo "ahoj"
 
 for (( i = 1 ; i <= $num ; i++ )) ; do
   param=${!i}
